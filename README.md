@@ -158,11 +158,11 @@ The Logistic Regression model was evaluated using:
 
 | Metric    |                  Value |
 | --------- | ---------------------: |
-| Accuracy  | **[ENTER YOUR VALUE]** |
-| Precision | **[ENTER YOUR VALUE]** |
-| Recall    | **[ENTER YOUR VALUE]** |
-| F1-Score  | **[ENTER YOUR VALUE]** |
-| ROC-AUC   | **[ENTER YOUR VALUE]** |
+| Accuracy  | 0.8080                 |               
+| Precision |  0.5891                |
+| Recall    | 0.1867                 |
+| F1-Score  |  0.2836                |
+| ROC-AUC   | 0.7748                 |
 
 Replace the values above with the actual output from the notebook.
 
@@ -254,7 +254,95 @@ This analysis provides an interpretable way to understand how individual variabl
 * Google Colab
 * Jupyter Notebook
 
----
+## 15. Multicollinearity Analysis
+
+Variance Inflation Factor (VIF) was calculated to identify potential multicollinearity among the predictor variables.
+
+The general interpretation of VIF values is:
+
+|  VIF | Interpretation              |
+| ---: | --------------------------- |
+|    1 | No multicollinearity        |
+|  1–5 | Generally acceptable        |
+| 5–10 | High multicollinearity      |
+|  >10 | Very high multicollinearity |
+
+The VIF results are shown below:
+
+| Feature          |       VIF |
+| ---------------- | --------: |
+| credit_score     | 21.236445 |
+| age              | 12.334128 |
+| products_number  |  7.826417 |
+| estimated_salary |  3.887186 |
+| tenure           |  3.872755 |
+| credit_card      |  3.289605 |
+| balance          |  3.182267 |
+| gender_Male      |  2.168988 |
+| active_member    |  2.075966 |
+| country_Germany  |  1.787170 |
+| country_Spain    |  1.486247 |
+
+The results indicate high multicollinearity for `credit_score` and `age`, while `products_number` also shows a relatively high VIF. Most of the remaining variables have VIF values below 5 and therefore show relatively acceptable levels of multicollinearity.
+
+## 16. Results and Discussion
+
+The Logistic Regression model was developed to predict customer churn using demographic, financial, and banking-related variables.
+
+The final model achieved the following performance:
+
+| Metric    |      Value |
+| --------- | ---------: |
+| Accuracy  | **0.8080** |
+| Precision | **0.5891** |
+| Recall    | **0.1867** |
+| F1-Score  | **0.2836** |
+| ROC-AUC   | **0.7748** |
+
+The accuracy of **80.80%** indicates that the model correctly classified approximately 81% of the test observations.
+
+The precision of **58.91%** indicates that among the customers predicted as churners, approximately 59% actually churned.
+
+The recall of **18.67%** indicates that the model identified approximately 19% of the customers who actually churned. This relatively low recall indicates that the model misses a substantial number of potential churners.
+
+The F1-score of **0.2836** reflects the balance between precision and recall and is affected by the relatively low recall.
+
+The ROC-AUC of **0.7748** indicates that the model has a reasonable ability to distinguish between customers who churn and customers who remain with the bank.
+
+The confusion matrix provides additional information about correctly and incorrectly classified customers, while the ROC curve provides an overall view of the model's classification capability.
+
+Feature coefficient and odds-ratio analysis were used to understand the relationship between predictor variables and customer churn. Positive coefficients indicate increased estimated log-odds of churn, while negative coefficients indicate decreased estimated log-odds of churn.
+
+## 17. Key Insights
+
+The analysis provides the following major insights:
+
+1. Customer churn is not evenly distributed across the dataset, making class distribution important when interpreting model performance.
+2. Customer age can be an important factor associated with churn behavior.
+3. Credit score provides additional financial information that can be considered when predicting churn.
+4. Account balance can contribute to understanding differences in customer behavior.
+5. The number of products used by a customer provides information about the customer's relationship with the bank.
+6. Active membership can provide an indication of customer engagement.
+7. Country and gender were converted into numerical variables using one-hot encoding.
+8. Accuracy alone does not provide a complete picture of churn prediction performance.
+9. The low recall of **18.67%** indicates that the model does not identify a large proportion of actual churners.
+10. The ROC-AUC of **0.7748** indicates reasonable discrimination between churned and retained customers.
+11. Logistic Regression coefficients and odds ratios provide an interpretable way to examine the relationship between features and churn.
+12. VIF analysis identified substantial multicollinearity for `credit_score` and `age`, which should be considered when interpreting individual coefficients.
+13. The model can potentially support banks in identifying customers at risk of leaving and developing targeted customer-retention strategies.
+
+## 18. Conclusion
+
+A Logistic Regression model was developed to predict customer churn for ABC Bank. The dataset contained no missing values or duplicate records, and exploratory data analysis was performed to investigate relationships between customer characteristics and churn.
+
+Categorical variables were converted into numerical form using one-hot encoding, while the customer identifier was removed because it does not provide meaningful predictive information.
+
+The Logistic Regression model was trained using an 80:20 train-test split and evaluated using Accuracy, Precision, Recall, F1-Score, Confusion Matrix, and ROC-AUC.
+
+The model achieved an accuracy of **80.80%** and an ROC-AUC of **0.7748**, indicating reasonable overall classification capability. However, the recall of **18.67%** shows that the model failed to identify many actual churners. Therefore, further model improvement, threshold tuning, class-balancing techniques, or alternative classification algorithms could be considered if the primary objective is to identify as many potential churners as possible.
+
+Overall, the project demonstrates how Logistic Regression and exploratory data analysis can be used to identify patterns associated with customer churn and support data-driven customer-retention strategies.
+
 
 ## Project Structure
 
@@ -274,9 +362,6 @@ Bank-Customer-Churn-Prediction/
     ├── confusion_matrix.png
     ├── roc_curve.png
     └── feature_importance.png
-```
-
----
 
 ## How to Run
 
@@ -289,11 +374,3 @@ Bank-Customer-Churn-Prediction/
 7. Review the EDA, model evaluation, confusion matrix, ROC curve, and feature analysis.
 
 ---
-
-## Conclusion
-
-This project demonstrates the application of **Logistic Regression for bank customer churn prediction**.
-
-Through Exploratory Data Analysis, preprocessing, multicollinearity analysis, Logistic Regression, classification metrics, confusion matrix analysis, ROC-AUC evaluation, coefficient analysis, and odds-ratio analysis, the project provides an interpretable approach to identifying factors associated with customer churn.
-
-The resulting model can serve as a foundation for identifying potentially high-risk customers and supporting data-driven customer-retention strategies.
